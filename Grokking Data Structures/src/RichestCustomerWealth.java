@@ -2,7 +2,7 @@ class RichestCustomerWealth {
     public static void main(String[] args) {
         RichestCustomerWealth max = new RichestCustomerWealth();
 
-        max.testCase();
+        max.testCases();
     }
 
     int maxWealth(int[][] accounts){
@@ -23,7 +23,7 @@ class RichestCustomerWealth {
        return maxWealth;
     }
 
-    void testCase(){
+    void testCases(){
        int[][] testInput = {
                {1,2,3,4,5},
                {5,5,5,5,5},
