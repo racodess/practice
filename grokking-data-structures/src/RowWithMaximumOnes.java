@@ -18,13 +18,9 @@ class RowWithMaximumOnes{
                 numOnes += binaryMatrix[i][j];
             }
 
-            if(numOnes >= maxOnesRow[1]) {
-                if(numOnes == maxOnesRow[1])
-                    ;
-                else {
+            if(numOnes > maxOnesRow[1]) {
                     maxOnesRow[0] = i;
                     maxOnesRow[1] = numOnes;
-                }
             }
         }
 
