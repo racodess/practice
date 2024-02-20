@@ -13,8 +13,10 @@
 #include <stdio.h>
 
 int main(int argc, char *argv[]) {
-	if (argc != 2)
+	if (argc != 3)
 		printf("Error: two arguments are required.\n");
+	else
+		printf("Argument 1: %s   Argument 2: %s", argv[1], argv[2]);
 
 	return 0;
 }
