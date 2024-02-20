@@ -12,6 +12,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main(int argc, char **argv) {
 	FILE *file;
@@ -44,6 +45,25 @@ int main(int argc, char **argv) {
 	{
 			printf("Process %d arrives at %d with burst time %d\n", i + 1, arrival[i], burst[i]);
 	}
+
+	const char* FCFS = "FCFS";
+	const char* SJF = "SJF";
+	char* algo = argv[2];
+
+	if (strcmp(FCFS, algo) == 0){
+		printf("Success for FCFS!\n");
+	}
+	else if (strcmp(SJF, algo) == 0){
+		printf("Success for SJF!\n");
+	}
+	else {
+		printf("Not working....");
+	}
+
+
+
+
+	
 	
 	// And remember to release the dynamically allocated memory after using
 	free(arrival);
