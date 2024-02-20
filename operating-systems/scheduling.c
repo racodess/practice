@@ -51,17 +51,24 @@ int main(int argc, char **argv) {
 	char* algo = argv[2];
 
 	if (strcmp(FCFS, algo) == 0){
-		printf("Success for FCFS!\n");
+		printf("\nSuccess for FCFS!\n");
 	}
 	else if (strcmp(SJF, algo) == 0){
-		printf("Success for SJF!\n");
+		printf("\nSuccess for SJF!\n");
 	}
 	else {
 		printf("Not working....");
 	}
 
-
-
+	// Test bubbleSort
+  int arr[] = {64, 34, 25, 12, 22, 11, 90};
+	int n = sizeof(arr)/sizeof(arr[0]);
+	bubbleSort(arr, n);
+	printf("Sorted array: \n");
+	for (int i=0; i<n; i++)
+		printf("%d ", arr[i]);
+	printf("\n");
+  // End Test bubbleSort
 
 	
 	
@@ -70,5 +77,18 @@ int main(int argc, char **argv) {
 	free(burst);
 
 	return 0;
+}
+
+void bubbleSort(int arr[], int n){ // From supplementary materials, TA recording, sort.c
+	int i, j, temp;
+	for (i = 0; i < n-1; i++){
+		for (j = 0; j < n-i-1; j++){
+			if (arr[j] > arr[j+1]){
+				temp = arr[j];
+				arr[j] = arr[j+1];
+				arr[j+1] = temp;
+			}
+		}
+	}
 }
 
