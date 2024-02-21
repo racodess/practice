@@ -146,8 +146,9 @@ int main(int argc, char **argv) {
 	//SJF
 	else if (strcmp(SJF, algo) == 0){
 
+		/*SJF: First sort by arrival time to avoid ordering the first 
+		 * process to arrive incorrectly.*/
 		int temp1, temp2, temp3;
-
 			for (int i = 0; i < num_process-1; i++){
 				for (int j = 0; j < num_process-i-1; j++){
 					if (p.arrival[j] > p.arrival[j+1]){
@@ -187,6 +188,8 @@ int main(int argc, char **argv) {
 
 		for (int i = 0; i < num_process-1; i++){
 			for (int j = 1; j < num_process-i-1; j++){
+				/*SJF: Switch columns if current burst is greater than next burst
+				 * AND the next arrival time is greater than or equal to the current time*/
 				if (p.burst[j] > p.burst[j+1] && !(p.arrival[j+1] >= (p.arrival[j] + p.waitingTime[j]))){
 					temp1 = p.name[j];
 					temp2 = p.arrival[j];
@@ -200,6 +203,8 @@ int main(int argc, char **argv) {
 					p.arrival[j+1] = temp2;
 					p.burst[j+1] = temp3;
 				}
+				/*SJF: If the bursts of the current and next column are equal
+				 * then use FCFS as a tie-breaker and switch columns*/
 				else if (p.burst[j] == p.burst[j+1] && p.arrival[j] > p.arrival[j+1]){
 					temp1 = p.name[j];
 					temp2 = p.arrival[j];
