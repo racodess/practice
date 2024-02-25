@@ -44,3 +44,8 @@ btn2.addEventListener('click', (e) => {
 	console.log(e.target);
 	e.target.style.background = 'blue';
 });
+
+const buttons = document.querySelectorAll('#container2 button');
+buttons.forEach( button => {
+	button.addEventListener('click', () => alert(button.id));
+});
