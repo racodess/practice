@@ -36,3 +36,8 @@ content2.appendChild(contentPara);
 
 const btn = document.querySelector('#btn');
 btn.onclick = () => alert('The onclick property can be used on nodes within the javascript file as well!');
+
+const btn2 = document.querySelector('#btn2');
+btn2.addEventListener('click', () => {
+	alert('Even better, I can add an event listener to a button which listens for a click. This is the best option due to its flexibility!');
+});
