@@ -38,11 +38,8 @@ const btn = document.querySelector('#btn');
 btn.onclick = () => alert('The onclick property can be used on nodes within the javascript file as well!');
 
 const btn2 = document.querySelector('#btn2');
-btn2.addEventListener('click', () => {
+btn2.addEventListener('click', (e) => {
 	alert('Even better, I can add an event listener to a button which listens for a click. This is the best option due to its flexibility!');
-});
-
-btn2.addEventListener('click', function(e) {
 	console.log(e);
 	console.log(e.target);
 	e.target.style.background = 'blue';
