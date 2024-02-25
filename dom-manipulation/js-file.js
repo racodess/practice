@@ -33,3 +33,6 @@ contentPara.textContent = "ME TOO!"
 
 content2.appendChild(contentHeader);
 content2.appendChild(contentPara);
+
+const btn = document.querySelector('#btn');
+btn.onclick = () => alert('The onclick property can be used on nodes within the javascript file as well!');
