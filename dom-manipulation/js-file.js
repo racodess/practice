@@ -41,3 +41,9 @@ const btn2 = document.querySelector('#btn2');
 btn2.addEventListener('click', () => {
 	alert('Even better, I can add an event listener to a button which listens for a click. This is the best option due to its flexibility!');
 });
+
+btn2.addEventListener('click', function(e) {
+	console.log(e);
+	console.log(e.target);
+	e.target.style.background = 'blue';
+});
