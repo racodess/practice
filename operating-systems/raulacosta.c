@@ -29,8 +29,8 @@ void *thread1() {
     int i = 0;
 		int bonus = 0;
     while (i < MAX_UPDATES) {
-        if (pthread_mutex_trylock(&mutex) == 0) { //Entry section
-						if ((counter->value % 100) == 0 && (i + 100 < MAX_UPDATES)){
+        if (pthread_mutex_lock(&mutex) == 0) { //Entry section
+						if ((counter->value % 100) == 0 && (i + 100 <= MAX_UPDATES)){
 					  //Start critical section
 							counter->value += 100;
 							i += 100;
@@ -44,7 +44,7 @@ void *thread1() {
 					  //End critical section
 						}
 
-              pthread_mutex_unlock(&mutex); //Exit section
+            pthread_mutex_unlock(&mutex); //Exit section
         }
     }
     
@@ -56,7 +56,7 @@ void *thread1() {
 void *thread2() {
     int i = 0;
     while (i < MAX_UPDATES) {
-        if (pthread_mutex_trylock(&mutex) == 0) { //Entry section
+        if (pthread_mutex_lock(&mutex) == 0) { //Entry section
 					  //Start critical section
 							counter->value++;
 							i++;
