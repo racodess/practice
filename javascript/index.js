@@ -1,0 +1,3 @@
+function sumUp() {
+  console.log();
+}
