@@ -70,11 +70,11 @@ int main(int argc, char *argv[]) {
   int input = atoi(argv[1]);
 
   if (input > 12){
-    printf("Warning: The maximum number of readers allowed is 12.\n Input: %d, but this program will proceed with only 12 readers and 1 writer\n", input);
+    printf("Warning: The maximum number of readers allowed is 12.\nInput: %d, but this program will proceed with only 12 readers and 1 writer\n", input);
     input = 12;
   }
   else if (input < 1){
-    printf("Error: Number of readers cannot be less than 1 or null"); 
+    printf("Error: Number of readers cannot be less than 1\n"); 
     return 1;
   }
 
@@ -101,8 +101,8 @@ int main(int argc, char *argv[]) {
       exit(0);
   }
 
-  for (int i = 1; i < input; i++){
-    if ((rc = pthread_create(&tid[i], &attr, reader, NULL))) {
+  for (long i = 1; i < input; i++){
+    if ((rc = pthread_create(&tid[i], &attr, reader, (void *)i))) {
         fprintf(stderr, "ERROR: pthread_create, rc: %d\n", rc);
         exit(0);
     }
