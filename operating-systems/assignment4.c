@@ -14,8 +14,10 @@
 
 sem_t ok_to_read;
 sem_t ok_to_write;
-sem_t reading;
-sem_t writing;
+
+int readers;
+int writer;
+int shared_value;
 
 start_read(){
   if (writing > 0 || count(ok_to_write) > 0){
@@ -34,32 +36,14 @@ end_read(){
   }
 }
 
-start_write(){
-  if (reading > 0 || writing > 0){
+void writer(){
+  for (int i = 0; i < 25000; i++){
     sem_wait(&ok_to_write);
-  }
-  
-  writing = 1;
-}
 
-end_write(){
-  writing = 0;
+    shared_value++;
 
-  if (count(&ok_to_read) > 0){
-    sem_post(&ok_to_read);
-  }
-  else {
     sem_post(&ok_to_write);
   }
-
-}
-
-count(&ptr) {
-  int count;
-
-  sem_getvalue(&ptr, &count);
-
-  return count;
 }
 
 int main(int argc, char *argv[]) {
@@ -74,6 +58,9 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
+  //Add 1 for writer thread.
+  input++;
+
   sem_init(&ok_to_read, 0, 1);
   sem_init(&ok_to_write, 0, 1);
 
@@ -87,8 +74,13 @@ int main(int argc, char *argv[]) {
   }
 
   /* Create threads */
-  for (int i = 0; i < input; i++){
-    if ((rc = pthread_create(&tid[i], &attr, thread1CHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANGE, NULL))) {
+  if ((rc = pthread_create(&tid[0], &attr, writer, NULL))) {
+      fprintf(stderr, "ERROR: pthread_create, rc: %d\n", rc);
+      exit(0);
+  }
+
+  for (int i = 1; i < input; i++){
+    if ((rc = pthread_create(&tid[i], &attr, reader, NULL))) {
         fprintf(stderr, "ERROR: pthread_create, rc: %d\n", rc);
         exit(0);
     }
