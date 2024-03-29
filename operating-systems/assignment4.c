@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
     printf("Warning: The maximum number of readers allowed is 12.\n Input: %d, but this program will proceed with only 12 readers and 1 writer\n", input);
     input = 12;
   }
-  else if (input < 1 || input == null){
+  else if (input < 1){
     printf("Error: Number of readers cannot be less than 1 or null"); 
     return 1;
   }
