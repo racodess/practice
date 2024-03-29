@@ -12,7 +12,10 @@
 #include <semaphore.h>
 #include <unistd.h>
 
-#define MAX_UPDATES 2000000
+sem_t ok_to_read;
+sem_t ok_to_write;
+sem_t reading;
+sem_t writing;
 
 /* Struct a shared variable to store result */
 struct shared_data {
@@ -21,14 +24,50 @@ struct shared_data {
 
 /* Global shared variable */
 struct shared_data *counter;
-/* Mutex lock */
-pthread_mutex_t mutex;
 
-/* Thread1 function */
-void *thread1() {
+start_read(){
+  if (writing > 0 || count(ok_to_write) > 0){
+    sem_wait(&ok_to_read);
   }
-    
-  return NULL;
+
+  reading++;
+  sem_post(&ok_to_read);
+}
+
+end_read(){
+  reading--;
+
+  if (reading == 0){
+    sem_post(&ok_to_write);
+  }
+}
+
+start_write(){
+  if (reading > 0 || writing > 0){
+    sem_wait(&ok_to_write);
+  }
+  
+  writing = 1;
+}
+
+end_write(){
+  writing = 0;
+
+  if (count(&ok_to_read) > 0){
+    sem_post(&ok_to_read);
+  }
+  else {
+    sem_post(&ok_to_write);
+  }
+
+}
+
+count(&ptr) {
+  int count;
+
+  sem_getvalue(&ptr, &count);
+
+  return count;
 }
 
 int main(int argc, char *argv[]) {
@@ -53,19 +92,6 @@ int main(int argc, char *argv[]) {
   counter = (struct shared_data *) malloc(sizeof(struct shared_data));
   counter->value = 0;
 
-  /*Initialize semaphores
-    * change
-    * change
-    * change
-    * change
-    * change
-    * change
-    * change*/
-  if ((pthread_mutex_init(&mutex, NULL))) {
-      printf("Error occured when initialize mutex lock.");
-      exit(0);
-  }
-
   pthread_attr_t attr;
   if ((pthread_attr_init(&attr))) {
       printf("Error occured when initialize pthread_attr_t.");
@@ -74,7 +100,7 @@ int main(int argc, char *argv[]) {
 
   /* Create threads */
   for (int i = 0; i < input; i++){
-    if ((rc = pthread_create(&tid[i], &attr, thread1, NULL))) {
+    if ((rc = pthread_create(&tid[i], &attr, thread1CHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANGE, NULL))) {
         fprintf(stderr, "ERROR: pthread_create, rc: %d\n", rc);
         exit(0);
     }
