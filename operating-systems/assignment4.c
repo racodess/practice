@@ -20,23 +20,27 @@ int writer;
 int shared_value;
 
 void reader(void *arg){
-  int reader_thread = (int)arg;
+  long reader_thread = (long)arg;
 
   for (int i = 0; i < 2000000; i++){
     sem_wait(&ok_to_read);
+
     readers++;
+
     if (readers == 1){
       sem_wait(&ok_to_write);
     }
+
     sem_post(&ok_to_read);
 
     readers--;
+
     if (readers == 0){
       sem_post(&ok_to_write);
     }
 
     if (i == 1999999){
-      printf("I'm reader%d, counter = %d\n", reader_thread, shared_value);
+      printf("I'm reader%ld, counter = %d\n", reader_thread, shared_value);
     }
   }
 }
