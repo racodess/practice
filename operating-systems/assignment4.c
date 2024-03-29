@@ -30,13 +30,14 @@ void reader(void *arg){
     }
     sem_post(&ok_to_read);
 
-  readers--;
-  if (readers == 0){
-    sem_post(&ok_to_write);
-  }
+    readers--;
+    if (readers == 0){
+      sem_post(&ok_to_write);
+    }
 
-  if (i == 1999999){
-    printf("I'm reader%d, counter = %d\n", reader_thread, shared_value);
+    if (i == 1999999){
+      printf("I'm reader%d, counter = %d\n", reader_thread, shared_value);
+    }
   }
 }
 
@@ -51,7 +52,7 @@ void writer(){
 }
 
 int main(int argc, char *argv[]) {
-  int input = atoi(*argv[1]);
+  int input = atoi(argv[1]);
 
   if (input > 12){
     printf("Warning: The maximum number of readers allowed is 12.\n Input: %d, but this program will proceed with only 12 readers and 1 writer\n", input);
