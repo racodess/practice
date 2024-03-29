@@ -26,19 +26,23 @@ void *reader(void *arg){
   for (int i = 0; i < MAX_READS; i++){
     sem_wait(&ok_to_read);
 
+    sem_wait(&protect);
     readers++;
 
     if (readers == 1){
       sem_wait(&ok_to_write);
     }
+    sem_post(&protect);
 
     sem_post(&ok_to_read);
 
+    sem_wait(&protect);
     readers--;
 
     if (readers == 0){
       sem_post(&ok_to_write);
     }
+    sem_post(&protect);
 
     if (i == MAX_READS - 1){
       printf("I'm reader%ld, counter = %d\n", reader_thread, shared_value);
@@ -79,8 +83,8 @@ int main(int argc, char *argv[]) {
 
   sem_init(&ok_to_read, 0, 1);
   sem_init(&ok_to_write, 0, 1);
+  sem_init(&protect, 0, 1);
 
-  pthread_mutex_init(&mutex, NULL);
 
   pthread_t tid[input];
   int rc;
