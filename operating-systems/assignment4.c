@@ -17,14 +17,6 @@ sem_t ok_to_write;
 sem_t reading;
 sem_t writing;
 
-/* Struct a shared variable to store result */
-struct shared_data {
-  int value;  
-};
-
-/* Global shared variable */
-struct shared_data *counter;
-
 start_read(){
   if (writing > 0 || count(ok_to_write) > 0){
     sem_wait(&ok_to_read);
@@ -77,20 +69,16 @@ int main(int argc, char *argv[]) {
     printf("Warning: The maximum number of readers allowed is 12.\n Input: %d, but this program will proceed with only 12 readers and 1 writer\n", input);
     input = 12;
   }
-  else if (input < 0 || input == null){
-    printf("Error: Number of readers cannot be less than 0 or null"); 
-    exit(0);
+  else if (input < 1 || input == null){
+    printf("Error: Number of readers cannot be less than 1 or null"); 
+    return 1;
   }
 
-  //Add 1 for the writer thread
-  input += 1;
+  sem_init(&ok_to_read, 0, 1);
+  sem_init(&ok_to_write, 0, 1);
 
   pthread_t tid[input];
   int rc;
-
-  /* Allocate memory for shared data */
-  counter = (struct shared_data *) malloc(sizeof(struct shared_data));
-  counter->value = 0;
 
   pthread_attr_t attr;
   if ((pthread_attr_init(&attr))) {
