@@ -19,7 +19,7 @@ sem_t ok_to_write;
 int readers = 0;
 int shared_value = 0;
 
-void reader(void *arg){
+void *reader(void *arg){
   long reader_thread = (long)arg;
 
   for (int i = 0; i < MAX_READS; i++){
@@ -43,9 +43,11 @@ void reader(void *arg){
       printf("I'm reader%ld, counter = %d\n", reader_thread, shared_value);
     }
   }
+
+  return NULL;
 }
 
-void writer(){
+void *writer(void *arg){
   printf("Executing... please wait...\n");
   for (int i = 0; i < 25000; i++){
     sem_wait(&ok_to_write);
@@ -55,6 +57,8 @@ void writer(){
     sem_post(&ok_to_write);
   }
   printf("Writer Done!\n");
+
+  return NULL;
 }
 
 int main(int argc, char *argv[]) {
