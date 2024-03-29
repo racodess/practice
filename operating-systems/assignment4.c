@@ -1,3 +1,11 @@
+/* Raul Acosta 4566606
+ *
+ * This program implements a fair starvation and deadlock-free solution
+ * to the readers-writers problem by ensuring max reader concurrency and
+ * preventing starvation of processes. This is done using semaphores and a 
+ * monitor.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
