@@ -11,6 +11,8 @@
 #include <semaphore.h>
 #include <unistd.h>
 
+#define MAX_READS 2000000
+
 sem_t ok_to_read;
 sem_t ok_to_write;
 
@@ -20,7 +22,7 @@ int shared_value = 0;
 void reader(void *arg){
   long reader_thread = (long)arg;
 
-  for (int i = 0; i < 2000000; i++){
+  for (int i = 0; i < MAX_READS; i++){
     sem_wait(&ok_to_read);
 
     readers++;
@@ -37,7 +39,7 @@ void reader(void *arg){
       sem_post(&ok_to_write);
     }
 
-    if (i == 1999999){
+    if (i == MAX_READS - 1){
       printf("I'm reader%ld, counter = %d\n", reader_thread, shared_value);
     }
   }
