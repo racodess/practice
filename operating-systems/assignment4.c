@@ -33,6 +33,10 @@ void reader(){
   if (readers == 0){
     sem_post(&ok_to_write);
   }
+
+  if (i == 1999999){
+    printf("I'm reader%d, counter = %d\n", reader_thread, shared_value);
+  }
 }
 
 void writer(){
