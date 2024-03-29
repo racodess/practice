@@ -2,8 +2,7 @@
  *
  * This program implements a fair starvation and deadlock-free solution
  * to the readers-writers problem by ensuring max reader concurrency and
- * preventing starvation of processes. This is done using semaphores and a 
- * monitor.
+ * preventing starvation of processes. 
  */
 
 #include <stdio.h>
@@ -15,8 +14,8 @@
 sem_t ok_to_read;
 sem_t ok_to_write;
 
-int readers;
-int shared_value;
+int readers = 0;
+int shared_value = 0;
 
 void reader(void *arg){
   long reader_thread = (long)arg;
@@ -45,6 +44,7 @@ void reader(void *arg){
 }
 
 void writer(){
+  printf("Executing... please wait...\n");
   for (int i = 0; i < 25000; i++){
     sem_wait(&ok_to_write);
 
@@ -52,6 +52,7 @@ void writer(){
 
     sem_post(&ok_to_write);
   }
+  printf("Writer Done!\n");
 }
 
 int main(int argc, char *argv[]) {
