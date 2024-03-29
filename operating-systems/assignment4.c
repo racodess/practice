@@ -19,7 +19,9 @@ int readers;
 int writer;
 int shared_value;
 
-void reader(){
+void reader(void *arg){
+  int reader_thread = (int)arg;
+
   for (int i = 0; i < 2000000; i++){
     sem_wait(&ok_to_read);
     readers++;
@@ -27,7 +29,6 @@ void reader(){
       sem_wait(&ok_to_write);
     }
     sem_post(&ok_to_read);
-  }
 
   readers--;
   if (readers == 0){
@@ -95,8 +96,6 @@ int main(int argc, char *argv[]) {
   }
 
   /* Clean up */
-  pthread_mutex_destroy(&mutex); //CHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANGE!!!
-  free(counter); //CHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANGE!!!
   pthread_exit(NULL);
 
   return 0;
