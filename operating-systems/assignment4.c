@@ -16,7 +16,6 @@ sem_t ok_to_read;
 sem_t ok_to_write;
 
 int readers;
-int writer;
 int shared_value;
 
 void reader(void *arg){
