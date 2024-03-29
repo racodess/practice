@@ -15,11 +15,10 @@
 
 sem_t ok_to_read;
 sem_t ok_to_write;
+sem_t protect;
 
 int readers = 0;
 int shared_value = 0;
-
-pthread_mutex_t mutex;
 
 void *reader(void *arg){
   long reader_thread = (long)arg;
@@ -113,7 +112,7 @@ int main(int argc, char *argv[]) {
   /* Clean up */
   sem_destroy(&ok_to_read);
   sem_destroy(&ok_to_write);
-  pthread_mutex_destroy(&mutex);
+  sem_destroy(&protect);
   pthread_exit(NULL);
 
   return 0;
