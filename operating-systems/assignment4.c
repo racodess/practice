@@ -19,19 +19,18 @@ int readers;
 int writer;
 int shared_value;
 
-start_read(){
-  if (writing > 0 || count(ok_to_write) > 0){
+void reader(){
+  for (int i = 0; i < 2000000; i++){
     sem_wait(&ok_to_read);
+    readers++;
+    if (readers == 1){
+      sem_wait(&ok_to_write);
+    }
+    sem_post(&ok_to_read);
   }
 
-  reading++;
-  sem_post(&ok_to_read);
-}
-
-end_read(){
-  reading--;
-
-  if (reading == 0){
+  readers--;
+  if (readers == 0){
     sem_post(&ok_to_write);
   }
 }
