@@ -1,0 +1,27 @@
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+button {
+  padding: 3px;
+  height: 30px;
+  width: 30px;
+}
+
+.form-button {
+  height: auto;
+  width: auto;
+  padding: 5px;
+  background-color: cadetblue;
+  color: white;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
