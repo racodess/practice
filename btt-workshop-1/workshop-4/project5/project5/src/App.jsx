@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Form from "./components/Form.jsx";
+import Questions from "./components/Questions.jsx";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 
