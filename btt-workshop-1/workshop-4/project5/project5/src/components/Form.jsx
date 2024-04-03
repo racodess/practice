@@ -25,7 +25,7 @@ const Form = () => {
               {question.answers.map((answer) => {
                 return (
                   <div key={answer}>
-                    <input type="radio"></input>
+                    <input type="radio" name={question.id}></input>
                     <label>{answer}</label>
                   </div>
                 );
