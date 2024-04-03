@@ -13,7 +13,7 @@ const Form = () => {
   ];
 
   return (
-    <div>
+    <form>
       <h1>The Quiz</h1>
 
       {questions.map((question) => {
@@ -34,7 +34,8 @@ const Form = () => {
           </div>
         );
       })}
-    </div>
+      <button>Submit Quiz</button>
+    </form>
   );
 };
 
