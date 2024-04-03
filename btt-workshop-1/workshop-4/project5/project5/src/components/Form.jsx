@@ -23,7 +23,12 @@ const Form = () => {
 
             <div>
               {question.answers.map((answer) => {
-                return <h1 key={answer}>{answer}</h1>;
+                return (
+                  <div key={answer}>
+                    <input type="radio"></input>
+                    <label>{answer}</label>
+                  </div>
+                );
               })}
             </div>
           </div>
