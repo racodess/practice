@@ -12,17 +12,7 @@ const Form = () => {
     },
   ];
 
-  return (
-    <div>
-      <form>
-        <h1>The Quiz</h1>
-        {questions.map((question) => {
-          console.log(question.id);
-          return "";
-        })}
-      </form>
-    </div>
-  );
+  return <div>Form</div>;
 };
 
 export default Form;
