@@ -12,8 +12,13 @@ const Form = () => {
     },
   ];
 
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    console.log(event);
+  }
+
   return (
-    <form>
+    <form onSubmit={handleFormSubmit}>
       <h1>The Quiz</h1>
 
       {questions.map((question) => {
