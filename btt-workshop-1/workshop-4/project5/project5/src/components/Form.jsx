@@ -11,7 +11,14 @@ const Form = () => {
       answers: ["Apple", "Orange", "Lemon", "Starberry"],
     },
   ];
-  return <div>Form</div>;
+
+  const array = [1, 2, 3, 4];
+
+  return (
+    <div>
+      <h1>The Quiz</h1>
+    </div>
+  );
 };
 
 export default Form;
