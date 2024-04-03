@@ -3,12 +3,12 @@ const Form = () => {
     {
       id: 1001,
       questionTitle: "Which fruit is yellow?",
-      answers: ["Apple", "Orange", "Lemon", "Starberry"],
+      answers: ["Apple", "Orange", "Lemon", "Strawberry"],
     },
     {
       id: 1002,
       questionTitle: "Which fruit is red?",
-      answers: ["Apple", "Orange", "Lemon", "Starberry"],
+      answers: ["Apple", "Orange", "Lemon", "Strawberry"],
     },
   ];
 
@@ -17,7 +17,17 @@ const Form = () => {
       <h1>The Quiz</h1>
 
       {questions.map((question) => {
-        return <div key={questions.id}>{question.questionTitle}</div>;
+        return (
+          <div key={question.id}>
+            {question.questionTitle}
+
+            <div>
+              {question.answers.map((answer) => {
+                return <h1 key={answer}>{answer}</h1>;
+              })}
+            </div>
+          </div>
+        );
       })}
     </div>
   );
