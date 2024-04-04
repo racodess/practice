@@ -12,9 +12,20 @@ const Form = () => {
     },
   ];
 
+  const [userAnswers, setUserAnswer] = useState({
+    1001: null,
+    1002: null,
+  });
+
   function handleFormSubmit(event) {
     event.preventDefault();
-    console.log(event);
+  }
+
+  function handleUserClickNewAnswer(id, answer) {
+    const tempVar = userAnswers;
+    tempVar[id] = answer;
+
+    setUserAnswers(tempVar);
   }
 
   return (
@@ -30,7 +41,13 @@ const Form = () => {
               {question.answers.map((answer) => {
                 return (
                   <div key={answer}>
-                    <input type="radio" name={question.id}></input>
+                    <input
+                      type="radio"
+                      name={question.id}
+                      onChange={(event) =>
+                        handleUserClickNewAnswer(question.id, answer)
+                      }
+                    ></input>
                     <label>{answer}</label>
                   </div>
                 );
