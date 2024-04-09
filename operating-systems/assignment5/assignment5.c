@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int findMemory(int page, int memory[], int totalFrames);
+
 int main(int argc, char *argv[]){
   int numFrames = atoi(argv[2]);
 
