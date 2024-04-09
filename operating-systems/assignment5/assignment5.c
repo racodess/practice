@@ -1,5 +1,7 @@
 /* Raul Acosta 4566606
-*  
+ *
+*  This program will find the number of page faults from FIFO,
+*  and LRU page replacement algorithms.
 */
 
 #include <stdio.h>
