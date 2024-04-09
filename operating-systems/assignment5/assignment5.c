@@ -8,6 +8,7 @@
 #include <stdlib.h>
 
 int findMemory(int page, int memory[], int totalFrames);
+int findLRU(int lastAccess[], int totalFrames);
 
 int main(int argc, char *argv[]){
   int numFrames = atoi(argv[2]);
@@ -48,6 +49,10 @@ int main(int argc, char *argv[]){
         currentFrame++;
       } 
       else {
+        int place = findLRU(lastAccess, numFrames);
+
+        memoryLRU[place] = pageRefs[i];
+        lastAccess[place] = i;
       }
 
       faultsLRU++;
@@ -72,3 +77,15 @@ int findMemory(int page, int memory[], int totalFrames){
   return 0;
 }
 
+int findLRU(int lastAccess[], int numFrames) {
+  int place = 0;
+
+  for(int i = 0; i < numFrames; i++) {
+    if(lastAccess[i] < lastAccess[0]) {
+      lastAccess[0] = lastAccess[i];
+      place = i;
+    }
+  }
+
+  return place;
+}
