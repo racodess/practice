@@ -66,6 +66,21 @@ int main(int argc, char *argv[]){
       }
     }
   }
+
+  printf("FIFO: %d page faults\n", faultsFIFO);
+  printf("Final state of memory: ");
+  for(int i = 0; i < numFrames; i++) {
+    printf("%d ", memoryFIFO[i]);
+  }
+  printf("\n");
+  printf("LRU: %d page faults\n", faultsLRU);
+  printf("Final state of memory: ");
+  for(int i = 0; i < numFrames; i++) {
+    printf("%d ", memoryLRU[i]);
+  }
+  printf("\n");
+
+  return 0;
 }
 
 int findMemory(int page, int memory[], int totalFrames){
