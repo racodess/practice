@@ -31,3 +31,15 @@ int findMemory(int page, int memory[], int totalFrames){
 
   return 0;
 }
+
+int nextFrame = 0;
+for(int i = 0; i < numPageRefs; i++) {
+  int inMemory = findMemory(pageRefs[i], memoryFIFO, numFrames);
+
+  if(!inMemory) {
+    memoryFIFO[nextFrame] = pageRefs[i];
+    pos = ++nextFrame % numFrames;
+
+    faultsFIFO++;
+  }
+}
