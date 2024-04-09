@@ -7,8 +7,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int findMemory(int page, int memory[], int totalFrames);
-int findLRU(int lastAccess[], int totalFrames);
+int findMemory(int page, int memory[], int numFrames);
+int findLRU(int lastAccess[], int numFrames);
 
 int main(int argc, char *argv[]){
   int numFrames = atoi(argv[2]);
@@ -80,21 +80,23 @@ int main(int argc, char *argv[]){
   printf("FIFO: %d page faults\n", faultsFIFO);
   printf("Final state of memory: ");
   for(int i = 0; i < numFrames; i++) {
-    printf("%d ", memoryFIFO[i]);
+    if(memoryFIFO[i] != -1)
+      printf("%d ", memoryFIFO[i]);
   }
   printf("\n");
   printf("LRU: %d page faults\n", faultsLRU);
   printf("Final state of memory: ");
   for(int i = 0; i < numFrames; i++) {
-    printf("%d ", memoryLRU[i]);
+    if(memoryLRU[i] != -1)
+      printf("%d ", memoryLRU[i]);
   }
   printf("\n");
 
   return 0;
 }
 
-int findMemory(int page, int memory[], int totalFrames){
-  for(int i = 0; i < totalFrames; i++){
+int findMemory(int page, int memory[], int numFrames){
+  for(int i = 0; i < numFrames; i++){
     if(memory[i] == page)
       return 1;
   }
@@ -104,10 +106,11 @@ int findMemory(int page, int memory[], int totalFrames){
 
 int findLRU(int lastAccess[], int numFrames) {
   int place = 0;
+  int least = lastAccess[0];
 
   for(int i = 1; i < numFrames; i++) {
-    if(lastAccess[i] < lastAccess[0]) {
-      lastAccess[0] = lastAccess[i];
+    if(lastAccess[i] < least) {
+      least = lastAccess[i];
       place = i;
     }
   }
