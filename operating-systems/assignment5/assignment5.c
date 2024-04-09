@@ -5,8 +5,11 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 int main(int argc, char *argv[]){
+  int numFrames = atoi(argv[2]);
+
   FILE *pageRefFile = fopen(argv[1], "r");
   fclose(pageRefFile);
 }
