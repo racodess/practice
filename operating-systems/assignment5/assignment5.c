@@ -21,6 +21,18 @@ int main(int argc, char *argv[]){
 
   int memoryFIFO[10], memoryLRU[10];
   int faultsFIFO = 0, faultsLRU = 0;
+
+  int nextFrame = 0;
+  for(int i = 0; i < numPageRefs; i++) {
+    int inMemory = findMemory(pageRefs[i], memoryFIFO, numFrames);
+
+    if(!inMemory) {
+      memoryFIFO[nextFrame] = pageRefs[i];
+      nextFrame = ++nextFrame % numFrames;
+
+      faultsFIFO++;
+    }
+  }
 }
 
 int findMemory(int page, int memory[], int totalFrames){
@@ -32,14 +44,3 @@ int findMemory(int page, int memory[], int totalFrames){
   return 0;
 }
 
-int nextFrame = 0;
-for(int i = 0; i < numPageRefs; i++) {
-  int inMemory = findMemory(pageRefs[i], memoryFIFO, numFrames);
-
-  if(!inMemory) {
-    memoryFIFO[nextFrame] = pageRefs[i];
-    pos = ++nextFrame % numFrames;
-
-    faultsFIFO++;
-  }
-}
