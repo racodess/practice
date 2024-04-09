@@ -14,11 +14,20 @@ int main(int argc, char *argv[]){
 
   int numPageRefs = 0;
   int pageRefs[50];
-  while (fscanf(pageRefFile, "%d", &pageRefs[numPageRefs]) != EOF)
+  while(fscanf(pageRefFile, "%d", &pageRefs[numPageRefs]) != EOF)
     numPageRefs++;
 
   fclose(pageRefFile);
 
   int memoryFIFO[10], memoryLRU[10];
   int faultsFIFO = 0, faultsLRU = 0;
+}
+
+int findMemory(int page, int memory[], int totalFrames){
+  for(int i = 0; i < totalFrames; i++){
+    if(memory[i] == page)
+      return 1;
+  }
+
+  return 0;
 }
