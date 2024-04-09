@@ -7,5 +7,6 @@
 #include <stdio.h>
 
 int main(int argc, char *argv[]){
-
+  FILE *pageRefFile = fopen(argv[1], "r");
+  fclose(pageRefFile);
 }
