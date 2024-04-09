@@ -80,7 +80,7 @@ int findMemory(int page, int memory[], int totalFrames){
 int findLRU(int lastAccess[], int numFrames) {
   int place = 0;
 
-  for(int i = 0; i < numFrames; i++) {
+  for(int i = 1; i < numFrames; i++) {
     if(lastAccess[i] < lastAccess[0]) {
       lastAccess[0] = lastAccess[i];
       place = i;
