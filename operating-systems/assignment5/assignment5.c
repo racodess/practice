@@ -13,9 +13,12 @@ int main(int argc, char *argv[]){
   FILE *pageRefFile = fopen(argv[1], "r");
 
   int numPageRefs = 0;
-  int pageRefs[100];
+  int pageRefs[50];
   while (fscanf(pageRefFile, "%d", &pageRefs[numPageRefs]) != EOF)
     numPageRefs++;
 
   fclose(pageRefFile);
+
+  int memoryFIFO[10], memoryLRU[10];
+  int faultsFIFO = 0, faultsLRU = 0;
 }
