@@ -25,6 +25,11 @@ int main(int argc, char *argv[]){
   int memoryFIFO[10], memoryLRU[10];
   int faultsFIFO = 0, faultsLRU = 0;
 
+  for(int i = 0; i < 10; i++) {
+    memoryFIFO[i] = -1;
+    memoryLRU[i] = -1;
+  }
+
   int nextFrame = 0;
   for(int i = 0; i < numPageRefs; i++) {
     int inMemory = findMemory(pageRefs[i], memoryFIFO, numFrames);
@@ -39,6 +44,11 @@ int main(int argc, char *argv[]){
 
   int currentFrame = 0;
   int lastAccess[10];
+
+  for(int i = 0; i < 10; i++) {
+    lastAccess[i] = 0;
+  }
+
   for(int i = 0; i < numPageRefs; i++) {
     int inMemory = findMemory(pageRefs[i], memoryLRU, numFrames);
 
