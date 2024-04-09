@@ -35,6 +35,32 @@ int main(int argc, char *argv[]){
       faultsFIFO++;
     }
   }
+
+  int currentFrame = 0;
+  int lastAccess[10];
+  for(int i = 0; i < numPageRefs; i++) {
+    int inMemory = findMemory(pageRefs[i], memoryLRU, numFrames);
+
+    if(!inMemory) {
+      if(currentFrame < numFrames) {
+        memoryLRU[currentFrame] = pageRefs[i];
+        lastAccess[currentFrame] = i;
+        currentFrame++;
+      } 
+      else {
+      }
+
+      faultsLRU++;
+    }
+    else {
+      for(int j = 0; j < numFrames; j++) {
+        if(memoryLRU[j] == pageRefs[i]) {
+          lastAccess[j] = i;
+          break;
+        } 
+      }
+    }
+  }
 }
 
 int findMemory(int page, int memory[], int totalFrames){
